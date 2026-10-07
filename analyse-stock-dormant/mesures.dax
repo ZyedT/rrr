@@ -1,0 +1,67 @@
+// =====================================================================================
+// Paramètre X : table « Seuil jours » (le curseur du rapport)
+// Création : Modélisation > Nouveau paramètre > Plage numérique
+//   Nom : Seuil jours | Nombre entier | Minimum 0 | Maximum 1095 | Incrément 1 | Par défaut 180
+// Power BI crée alors la table ci-dessous et une mesure « Valeur Seuil jours » :
+// renomme cette mesure en « Seuil appliqué (jours) ».
+// =====================================================================================
+
+Seuil jours = GENERATESERIES ( 0, 1095, 1 )
+
+Seuil appliqué (jours) = SELECTEDVALUE ( 'Seuil jours'[Seuil jours], 180 )
+
+// =====================================================================================
+// Mesures à créer dans la table « Stock » (Accueil > Nouvelle mesure, une par une)
+// Un article est « dormant » s'il a du stock (STOCK TOTAL > 0) et aucun mouvement
+// (entrée ou sortie) depuis au moins X jours.
+// =====================================================================================
+
+Articles en stock =
+CALCULATE ( COUNTROWS ( 'Stock' ), KEEPFILTERS ( 'Stock'[STOCK TOTAL] > 0 ) )
+
+Valeur du stock =
+CALCULATE ( SUM ( 'Stock'[Montant] ), KEEPFILTERS ( 'Stock'[STOCK TOTAL] > 0 ) )
+
+Articles dormants =
+VAR _Seuil = [Seuil appliqué (jours)]
+RETURN
+    CALCULATE (
+        COUNTROWS ( 'Stock' ),
+        KEEPFILTERS ( 'Stock'[STOCK TOTAL] > 0 ),
+        KEEPFILTERS ( 'Stock'[Jours sans mouvement] >= _Seuil )
+    )
+
+Quantité dormante =
+VAR _Seuil = [Seuil appliqué (jours)]
+RETURN
+    CALCULATE (
+        SUM ( 'Stock'[STOCK TOTAL] ),
+        KEEPFILTERS ( 'Stock'[STOCK TOTAL] > 0 ),
+        KEEPFILTERS ( 'Stock'[Jours sans mouvement] >= _Seuil )
+    )
+
+Valeur dormante =
+VAR _Seuil = [Seuil appliqué (jours)]
+RETURN
+    CALCULATE (
+        SUM ( 'Stock'[Montant] ),
+        KEEPFILTERS ( 'Stock'[STOCK TOTAL] > 0 ),
+        KEEPFILTERS ( 'Stock'[Jours sans mouvement] >= _Seuil )
+    )
+
+% valeur dormante = DIVIDE ( [Valeur dormante], [Valeur du stock] )
+
+% articles dormants = DIVIDE ( [Articles dormants], [Articles en stock] )
+
+// Nombre de jours sans mouvement, affiché seulement pour les articles dormants
+// (sert à n'afficher que les articles dormants dans le tableau de détail).
+Jours dormant =
+VAR _Seuil = [Seuil appliqué (jours)]
+RETURN
+    CALCULATE (
+        MAX ( 'Stock'[Jours sans mouvement] ),
+        KEEPFILTERS ( 'Stock'[STOCK TOTAL] > 0 ),
+        KEEPFILTERS ( 'Stock'[Jours sans mouvement] >= _Seuil )
+    )
+
+Analyse au = MAX ( 'Stock'[Date analyse] )
