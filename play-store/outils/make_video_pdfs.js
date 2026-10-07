@@ -76,7 +76,8 @@ async function renderPdf(browser, html, out) {
     { f: "screenshots-fr/05-exemple-gantt.png", n: "Capture 5", t: "Exemple réel ChantierPro : Gantt et chemin critique.", u: "Étape « exemples ». Script 30 s : 20-26 s." },
     { f: "screenshots-fr/06-exemple-tableau-de-bord.png", n: "Capture 6", t: "Exemple réel ChantierPro : le chantier d'un coup d'œil.", u: "Étape « exemples ». Script 75 s : 38-55 s." },
     { f: "screenshots-fr/07-exemple-plans.png", n: "Capture 7", t: "Exemple réel ChantierPro : plans annotés sur le terrain.", u: "Étape « exemples ». Script 30 s : 20-26 s." },
-    { f: "screenshots-fr/08-exemple-rapport-signe.png", n: "Capture 8", t: "Exemple réel ChantierPro : rapport journalier signé.", u: "Étape « exemples ». Script 30 s : 20-26 s." },
+    { f: "screenshots-fr/08-jeu-3d.png", n: "Capture 8", t: "Même des jeux 3D : Ping Crépuscule, créé avec AppForge.", u: "Étape « exemples » (« et même des jeux 3D »). Capture réelle du jeu, placée dans le cadre des autres captures. Script 30 s : 20-26 s ; script 75 s : 55-63 s." },
+    { f: "screenshots-fr/extras/exemple-rapport-signe.png", n: "Extra", t: "Exemple réel ChantierPro : rapport journalier signé.", u: "Étape « exemples », si un plan de plus est utile. Script 75 s : 38-55 s." },
   ];
   let pages = `
   <div class="page"><div class="cover">
@@ -96,13 +97,14 @@ async function renderPdf(browser, html, out) {
   for (const s of shots) {
     pages += `<div class="page"><h2>${s.n} — ${s.t}</h2><p class="use">À utiliser pour : ${s.u}</p><div class="img"><img src="file://${path.join(ASSETS, s.f)}"></div></div>`;
   }
+  const jeu = ["sources/ping-crepuscule-02.jpg", "sources/ping-crepuscule-04.jpg"].map(f => path.join(ASSETS, f)).filter(fs.existsSync);
+  if (jeu.length) {
+    pages += `<div class="page"><h2>Ping Crépuscule en jeu — captures brutes du téléphone</h2><p class="use">À utiliser pour : un plan de 2 à 3 secondes de jeu réel à l'étape « exemples » (« et même des jeux 3D »). Jeu de ping-pong 3D au coucher du soleil, public animé, adversaire contrôlé par l'application. Script 30 s : 20-26 s ; script 75 s : 55-63 s.</p><div class="img"><div class="duo">${jeu.map(j => `<img src="file://${j}">`).join("")}</div></div></div>`;
+  }
   pages += `<div class="page"><h2>Image de présentation — logo et slogan</h2><p class="use">À utiliser pour : l'étape « offre », la fin de la vidéo (« Votre première application est offerte. AppForge, sur Google Play. »). Script 30 s : 26-30 s.</p><div class="img wide"><img src="file://${path.join(ASSETS, "feature-graphic/feature_fr_1024x500.png")}"></div></div>`;
-  const icone = path.join(ASSETS, "exemples/ping-crepuscule-icone.png");
-  const splash = path.join(ASSETS, "exemples/ping-crepuscule-demarrage.png");
-  if (fs.existsSync(icone)) {
-    const imgs = [`<img src="file://${icone}">`];
-    if (fs.existsSync(splash)) imgs.push(`<img src="file://${splash}">`);
-    pages += `<div class="page"><h2>Exemple réel — Ping Crépuscule, jeu de ping-pong 3D</h2><p class="use">À utiliser pour : l'étape « exemples » (« et même des jeux 3D »). Icône et écran de démarrage de l'application, extraits du fichier livré par AppForge. Jeu de ping-pong en 3D au coucher du soleil, avec ambiance sonore de public. Script 30 s : 20-26 s.</p><div class="img"><div class="duo">${imgs.join("")}</div></div></div>`;
+  const galerie = path.join(ASSETS, "screenshots-fr/09-galerie-exemples.png");
+  if (fs.existsSync(galerie)) {
+    pages += `<div class="page"><h2>Capture 9 — Déjà fabriquées avec AppForge (galerie d'exemples)</h2><p class="use">À utiliser pour : l'étape « exemples » (« gestion de chantier, conseiller d'achat, jeux 3D… et la vôtre ? »). Les trois icônes sont celles des applications réellement livrées : ChantierPro (gestion de chantier), Bon Choix (conseiller d'achat) et Ping Crépuscule (jeu de ping-pong 3D). Script 30 s : 20-26 s ; script 75 s : 55-63 s.</p><div class="img"><img src="file://${galerie}"></div></div>`;
   }
   await renderPdf(browser, wrap("fr", pages), path.join(VID, "visuels-appforge.pdf"));
 

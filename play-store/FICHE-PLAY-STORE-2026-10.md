@@ -298,16 +298,15 @@ AppForge: تطبيقك بدون برمجة
 | 5 | `05-exemple-gantt.png` | Gantt et chemin critique | Capture actuelle conservée |
 | 6 | `06-exemple-tableau-de-bord.png` | Le chantier d'un coup d'œil | Capture actuelle conservée |
 | 7 | `07-exemple-plans.png` | Plans annotés sur le terrain | Capture actuelle conservée |
-| 8 | `08-exemple-rapport-signe.png` | Rapport journalier signé | Capture actuelle conservée |
+| 8 | `08-jeu-3d.png` | Même des jeux 3D / Décrit en une phrase, livré prêt à jouer. | **Nouvelle** : votre capture réelle de Ping Crépuscule, placée dans le même cadre S26 |
 
-La capture « Suivez chaque projet en direct » (ancienne n° 2) n'est pas perdue : son écran sert de support à la n° 4.
+La capture « Suivez chaque projet en direct » (ancienne n° 2) n'est pas perdue : son écran sert de support à la n° 4. Le quatrième écran ChantierPro (rapport journalier signé) est conservé dans `extras/`, Play n'acceptant que 8 captures.
 
-**Fiche anglaise (`assets/screenshots-en/`)** : `01-hero-en.png` et `04-first-app-free-en.png` remplacent les n° 1 et 4. Les six autres gardent leurs légendes françaises (comme aujourd'hui). Pour une fiche EN entièrement anglaise, refaites les six captures avec la méthode de votre note du 13/09 (AVD « S26Ultra_Captures », écrans 13/14/15 de la galerie debug, locale en-US) : c'est un chantier d'une heure, à faire après la mise en ligne de cette version.
+**Option : la galerie d'exemples (`09-galerie-exemples.png`, EN : `09-gallery-en.png`).** Une capture « Déjà fabriquées avec AppForge » avec les icônes réelles de ChantierPro, Bon Choix et Ping Crépuscule, extraites des applications livrées, et une carte « La vôtre ? ». Pour l'utiliser, remplacez la n° 7 (plans annotés, troisième écran ChantierPro) par celle-ci : elle montre la variété (gestion, conseiller d'achat, jeu 3D) mieux qu'un troisième écran du même exemple.
 
-**Captures à ajouter plus tard (quand vous aurez les écrans)** — à la place des n° 7 et 8 :
+**Fiche anglaise (`assets/screenshots-en/`)** : `01-hero-en.png`, `04-first-app-free-en.png` et `08-3d-game-en.png` remplacent les n° 1, 4 et 8 (et `09-gallery-en.png` si vous prenez l'option galerie). Les autres gardent leurs légendes françaises (comme aujourd'hui). Pour une fiche EN entièrement anglaise, refaites les six captures avec la méthode de votre note du 13/09 (AVD « S26Ultra_Captures », écrans 13/14/15 de la galerie debug, locale en-US) : c'est un chantier d'une heure, à faire après la mise en ligne de cette version.
 
-- un jeu 3D livré (ex. Ping Crépuscule), légende « Même des jeux 3D » ;
-- une app dans une autre langue (arabe), légende « En français, en anglais ou en arabe ».
+**Capture à ajouter plus tard (quand vous aurez l'écran)** — à la place de la n° 7 : une app livrée dans une autre langue (arabe), légende « En français, en anglais ou en arabe ».
 
 **Pour refaire les nouvelles captures :** `python3 outils/make_screens.py` (le fond est resynthétisé à partir de vos captures actuelles, le téléphone est découpé dedans, les légendes sont en Inter Display).
 

@@ -56,14 +56,17 @@ def paste_with_shadow(canvas, im, xy, blur=40, offset=(0, 30), alpha=120):
 
 
 def caption(canvas, title, subtitle, y=160, title_size=78, sub_size=42, badge=None):
-    d = ImageDraw.Draw(canvas)
     if badge:
+        # Pastille translucide composee sur un calque a part (ImageDraw n'alpha-compose pas).
         fb = ImageFont.truetype(FONT_SEMI, 34)
-        tw = d.textlength(badge, font=fb)
+        tw = ImageDraw.Draw(canvas).textlength(badge, font=fb)
         bx0, by0 = (W - tw) / 2 - 36, y - 10
-        d.rounded_rectangle((bx0, by0, bx0 + tw + 72, by0 + 60), radius=30, fill=(255, 255, 255, 46))
-        d.text((W / 2, by0 + 30), badge, font=fb, fill="white", anchor="mm")
+        layer = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
+        ImageDraw.Draw(layer).rounded_rectangle((bx0, by0, bx0 + tw + 72, by0 + 60), radius=30, fill=(255, 255, 255, 46))
+        canvas.alpha_composite(layer)
+        ImageDraw.Draw(canvas).text((W / 2, by0 + 30), badge, font=fb, fill="white", anchor="mm")
         y += 86
+    d = ImageDraw.Draw(canvas)
     ft = ImageFont.truetype(FONT_BOLD, title_size)
     d.multiline_text((W / 2, y), title, font=ft, fill="white", anchor="ma", align="center", spacing=8)
     lines = title.count("\n") + 1
@@ -94,6 +97,49 @@ def single(out, source, title, subtitle, badge=None):
     canvas.convert("RGB").save(out, optimize=True)
 
 
+def screen_rect(frame_rgb):
+    """Rectangle de l'ecran a l'interieur du cadre (la bordure noire est detectee
+    sur la ligne et la colonne du milieu)."""
+    a = np.asarray(frame_rgb)
+    dark = a.max(axis=2) < 40
+    H, W = dark.shape
+
+    def inner(line):
+        idx = np.where(line)[0]
+        lo, hi = int(idx.min()), int(idx.max())
+        while line[lo]:
+            lo += 1
+        while line[hi]:
+            hi -= 1
+        return lo, hi
+
+    x0, x1 = inner(dark[H // 2])
+    y0, y1 = inner(dark[:, W // 2])
+    return x0, y0, x1, y1
+
+
+def game(out, shot_path, title, subtitle, badge, status_bar=0.043, nav_bar=0.06):
+    """Une capture reelle prise sur un telephone (barre d'etat et barre de navigation
+    retirees) placee dans le cadre S26 des autres captures, avec legende."""
+    canvas = background().convert("RGBA")
+    caption(canvas, title, subtitle, y=110, title_size=78, sub_size=42, badge=badge)
+    frame = phone("00")
+    x0, y0, x1, y1 = screen_rect(frame.convert("RGB"))
+    sw, sh = x1 - x0 + 1, y1 - y0 + 1
+    shot = Image.open(shot_path).convert("RGB")
+    w0, h0 = shot.size
+    shot = shot.crop((0, int(h0 * status_bar), w0, h0 - int(h0 * nav_bar)))
+    scale = max(sw / shot.size[0], sh / shot.size[1])
+    shot = shot.resize((round(shot.size[0] * scale), round(shot.size[1] * scale)), Image.LANCZOS)
+    cx, cy = (shot.size[0] - sw) // 2, (shot.size[1] - sh) // 2
+    shot = shot.crop((cx, cy, cx + sw, cy + sh)).convert("RGBA")
+    mask = Image.new("L", shot.size, 0)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, sw - 1, sh - 1), radius=80, fill=255)
+    frame.paste(shot, (x0, y0), mask)
+    paste_with_shadow(canvas, frame, (PHONE_BOX[0], PHONE_BOX[1]), blur=30, offset=(0, 20), alpha=90)
+    canvas.convert("RGB").save(out, optimize=True)
+
+
 def main():
     for d in (OUT_FR, OUT_EN):
         os.makedirs(d, exist_ok=True)
@@ -110,15 +156,28 @@ def main():
     shutil.copy(os.path.join(SRC, "play-actuel-02.png"), os.path.join(OUT_FR, "05-exemple-gantt.png"))
     shutil.copy(os.path.join(SRC, "play-actuel-03.png"), os.path.join(OUT_FR, "06-exemple-tableau-de-bord.png"))
     shutil.copy(os.path.join(SRC, "play-actuel-05.png"), os.path.join(OUT_FR, "07-exemple-plans.png"))
-    shutil.copy(os.path.join(SRC, "play-actuel-04.png"), os.path.join(OUT_FR, "08-exemple-rapport-signe.png"))
+    game(os.path.join(OUT_FR, "08-jeu-3d.png"), os.path.join(SRC, "ping-crepuscule-04.jpg"),
+         "Même des jeux 3D",
+         "Décrit en une phrase, livré prêt à jouer.",
+         badge="Exemple réel · Ping Crépuscule, créé avec AppForge")
+    # Le 4e ecran ChantierPro reste disponible en extra (Play n'accepte que 8 captures).
+    os.makedirs(os.path.join(OUT_FR, "extras"), exist_ok=True)
+    shutil.copy(os.path.join(SRC, "play-actuel-04.png"), os.path.join(OUT_FR, "extras", "exemple-rapport-signe.png"))
+    for old in ("08-exemple-rapport-signe.png",):
+        if os.path.exists(os.path.join(OUT_FR, old)):
+            os.remove(os.path.join(OUT_FR, old))
 
-    # --- Anglais : les deux nouvelles captures (les autres gardent leurs legendes FR) ---
+    # --- Anglais : les captures specifiques (les autres gardent leurs legendes FR) ---
     hero(os.path.join(OUT_EN, "01-hero-en.png"),
          "Describe your app.\nGet it, ready to install.",
          "Designed, built and tested for you. No coding.")
     single(os.path.join(OUT_EN, "04-first-app-free-en.png"), "01",
            "Your first app is on us",
            "Welcome credits when you sign up.\nFixed price before anything starts.")
+    game(os.path.join(OUT_EN, "08-3d-game-en.png"), os.path.join(SRC, "ping-crepuscule-04.jpg"),
+         "Even 3D games",
+         "Described in one sentence, delivered ready to play.",
+         badge="Real example · Ping Crépuscule, made with AppForge")
 
     # Decoupe du telephone "app livree" pour l'image de presentation (render.js)
     phone("06").save(os.path.join(ROOT, "outils", "phone-06.png"))

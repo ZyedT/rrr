@@ -50,7 +50,8 @@ Public visé : indépendants, artisans, commerçants, petites entreprises, ensei
 |---|---|---|
 | **ChantierPro** | Gestion de chantier : planning Gantt avec chemin critique, plans annotés sur le terrain, pointage, paie, rapport journalier signé à l'écran, 100 % hors ligne, en français, arabe et anglais. 8 modules, 192 tests automatiques réussis. | captures 5, 6, 7, 8 |
 | **Visite Immo** | Visites immobilières : liste de biens, filtres location/vente, recherche, tri par prix, fiche du bien, messages. | pas de capture fournie |
-| **Ping Crépuscule** | Jeu de ping-pong en 3D au crépuscule, avec ambiance sonore de public ; signature « Créé avec AppForge » au démarrage. | à capturer sur votre téléphone : lancez le jeu, faites une capture d'écran (ou un enregistrement de 5 s) et ajoutez-la au notebook |
+| **Bon Choix** | Conseiller d'achat : on photographie l'étiquette en rayon ou on colle le lien d'un produit, l'application compare les offres sur les sites marchands, vérifie les prix, signale les compromis et recommande « Mon choix » et « Second choix », avec itinéraire vers le magasin. | capture 9 (icône) ; pour des écrans du produit, capture à faire sur votre téléphone |
+| **Ping Crépuscule** | Jeu de tennis de table en 3D au coucher du soleil : public animé, adversaire contrôlé par l'application, 10 niveaux, statistiques (victoires, défaites, meilleur échange) ; signature « Créé avec AppForge » au démarrage. | capture 8 (dans le cadre), captures brutes du jeu, capture 9 (icône) |
 | **Quiz Code de la route**, **Réservations Restaurant**, **Suivi Salle de sport** | Petites applications du quotidien, visibles dans la liste « Mes projets ». | capture 4 |
 | Calculatrices, convertisseurs, minuteurs, listes, blocs-notes | Outils simples, livrés en moins d'une heure en général. | capture 1 |
 
@@ -64,7 +65,7 @@ Public visé : indépendants, artisans, commerçants, petites entreprises, ensei
 | 3-8 s | AppForge vous annonce un prix fixe avant de commencer. Rien n'est déduit si vous refusez. | Capture 2 : zoom sur la carte « Prix ferme de cette demande » et le bouton Confirmer |
 | 8-14 s | Il la conçoit, la fabrique, et la vérifie par des tests automatiques. | Capture 4 : « Fabrication en cours » dans Mes projets |
 | 14-20 s | Puis elle arrive dans la discussion, prête à installer sur votre téléphone. | Capture 3 : « C'est prêt ! » et le bouton de téléchargement |
-| 20-26 s | Gestion de chantier, visites immobilières, jeux 3D : sans écrire une seule ligne de code. | Captures 5, 7, 8 en enchaînement rapide, puis l'icône de Ping Crépuscule |
+| 20-26 s | Gestion de chantier, visites immobilières, jeux 3D : sans écrire une seule ligne de code. | Captures 5 et 7 en enchaînement rapide, puis la capture 8 (jeu 3D) et la capture 9 (galerie : ChantierPro, Bon Choix, Ping Crépuscule) |
 | 26-30 s | Votre première application est offerte. AppForge, sur Google Play. | Image de présentation (logo + slogan) |
 
 ---
@@ -78,8 +79,8 @@ Public visé : indépendants, artisans, commerçants, petites entreprises, ensei
 | 12-20 s | AppForge analyse votre demande et vous annonce un prix fixe en crédits, avant de lancer quoi que ce soit. Rien n'est déduit si vous refusez. | Capture 2 : carte « Prix ferme », bouton Confirmer |
 | 20-30 s | Vous confirmez. L'application est fabriquée, puis vérifiée par des tests automatiques, avec un design adapté à votre activité. | Capture 4 : « Fabrication en cours » |
 | 30-38 s | Elle arrive dans la discussion, prête à installer. Un changement à faire ? Demandez-le dans le même fil, une nouvelle version est produite. | Capture 3 : « C'est prêt ! » |
-| 38-55 s | Regardez ChantierPro : planning Gantt, plans annotés sur le terrain, rapport journalier signé à l'écran, le tout hors ligne, en français, arabe et anglais. Fabriquée par AppForge. | Captures 5, 6, 7, 8 |
-| 55-63 s | Outils du quotidien, applications de gestion, et même des jeux 3D. | Capture 4 (liste de projets), icône et écran de Ping Crépuscule |
+| 38-55 s | Regardez ChantierPro : planning Gantt, plans annotés sur le terrain, rapport journalier signé à l'écran, le tout hors ligne, en français, arabe et anglais. Fabriquée par AppForge. | Captures 5, 6, 7 et l'extra « rapport signé » |
+| 55-63 s | Outils du quotidien, applications de gestion, un conseiller d'achat, et même des jeux 3D. | Capture 8 (jeu 3D) et capture 9 (galerie : ChantierPro, Bon Choix, Ping Crépuscule, « La vôtre ? ») |
 | 63-70 s | Vos projets, vos conversations et chaque version restent accessibles. Vos données vous appartiennent. | Capture 4 |
 | 70-75 s | Votre première application est offerte. AppForge, sur Google Play. | Image de présentation |
 
@@ -138,6 +139,6 @@ Contact : blue1wave.apps@gmail.com
 ## 10. Fichiers fournis
 
 - `brief-video-appforge.pdf` : ce document, à importer dans NotebookLM.
-- `visuels-appforge.pdf` : les 8 captures de la fiche et l'image de présentation, chacune légendée pour que NotebookLM sache à quelle étape elle correspond. Ajoutez-y vous-même une capture du jeu Ping Crépuscule prise sur votre téléphone (le fichier livré ne contient pas d'image du jeu exploitable).
+- `visuels-appforge.pdf` : les 8 captures de la fiche (dont la n° 8, votre capture réelle de Ping Crépuscule dans le cadre), l'extra « rapport signé », deux captures brutes du jeu, la capture 9 « galerie d'exemples » (icônes réelles de ChantierPro, Bon Choix et Ping Crépuscule, extraites des applications livrées) et l'image de présentation, chacune légendée pour que NotebookLM sache à quelle étape elle correspond.
 - Les mêmes images en PNG dans `../assets/`.
 - Pour refaire les PDF : `node ../outils/make_video_pdfs.js`.
