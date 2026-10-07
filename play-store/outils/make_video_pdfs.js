@@ -97,7 +97,7 @@ async function renderPdf(browser, html, out) {
   for (const s of shots) {
     pages += `<div class="page"><h2>${s.n} — ${s.t}</h2><p class="use">À utiliser pour : ${s.u}</p><div class="img"><img src="file://${path.join(ASSETS, s.f)}"></div></div>`;
   }
-  const jeu = ["sources/ping-crepuscule-02.jpg", "sources/ping-crepuscule-04.jpg"].map(f => path.join(ASSETS, f)).filter(fs.existsSync);
+  const jeu = ["sources/ping-crepuscule-02.jpg", "sources/ping-crepuscule-04.jpg", "sources/ping-crepuscule-05-cinematique.jpg"].map(f => path.join(ASSETS, f)).filter(fs.existsSync);
   if (jeu.length) {
     pages += `<div class="page"><h2>Ping Crépuscule en jeu — captures brutes du téléphone</h2><p class="use">À utiliser pour : un plan de 2 à 3 secondes de jeu réel à l'étape « exemples » (« et même des jeux 3D »). Jeu de ping-pong 3D au coucher du soleil, public animé, adversaire contrôlé par l'application. Script 30 s : 20-26 s ; script 75 s : 55-63 s.</p><div class="img"><div class="duo">${jeu.map(j => `<img src="file://${j}">`).join("")}</div></div></div>`;
   }

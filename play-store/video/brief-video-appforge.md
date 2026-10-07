@@ -136,7 +136,20 @@ Contact : blue1wave.apps@gmail.com
 
 ---
 
-## 10. Fichiers fournis
+## 10. L'enregistrement du jeu (clips prêts à monter)
+
+NotebookLM n'insère pas vos propres vidéos dans ce qu'il génère : il produit ses visuels à partir des documents. Votre enregistrement d'écran de Ping Crépuscule sert donc **au montage final**, après NotebookLM, ou **tel quel** sur les réseaux.
+
+Fichiers dans `clips/` :
+
+- `ping-crepuscule-9x16.mp4` : l'enregistrement nettoyé en 1080 × 1920, son du public conservé et normalisé. Pour un Reel, un TikTok, ou en pièce jointe d'un message.
+- `ping-crepuscule-16x9-fr.mp4` et `-en.mp4` : le même extrait dans le cadre du téléphone, sur le fond de la marque, avec la légende « Même des jeux 3D ». C'est le plan à insérer entre 20 et 26 s de la vidéo Play (étape « exemples »).
+
+**Comment l'insérer** : ouvrez la vidéo produite par NotebookLM dans CapCut (gratuit, téléphone ou PC), coupez au moment où la voix dit « jeux 3D », insérez `ping-crepuscule-16x9-fr.mp4` (3 à 4 secondes suffisent), baissez son volume à 30 % pour laisser la voix, exportez en 1080p. Publiez ensuite sur YouTube comme indiqué à la section 8.
+
+Pour refaire les clips à partir d'un autre enregistrement : `python3 ../outils/make_clip.py <enregistrement.mp4>`.
+
+## 11. Fichiers fournis
 
 - `brief-video-appforge.pdf` : ce document, à importer dans NotebookLM.
 - `visuels-appforge.pdf` : les 8 captures de la fiche (dont la n° 8, votre capture réelle de Ping Crépuscule dans le cadre), l'extra « rapport signé », deux captures brutes du jeu, la capture 9 « galerie d'exemples » (icônes réelles de ChantierPro, Bon Choix et Ping Crépuscule, extraites des applications livrées) et l'image de présentation, chacune légendée pour que NotebookLM sache à quelle étape elle correspond.
