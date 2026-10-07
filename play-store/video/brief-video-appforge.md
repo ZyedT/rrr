@@ -88,16 +88,16 @@ Public visé : indépendants, artisans, commerçants, petites entreprises, ensei
 
 ## 7. Prompt de personnalisation à coller dans NotebookLM
 
-Dans le panneau Studio, choisissez **Présentation vidéo** (Video Overview), puis **Personnaliser**, et collez ceci :
+Dans le panneau Studio, choisissez **Présentation vidéo** (Video Overview), puis **Personnaliser**, et collez ceci (le champ est limité à environ 500 caractères, ce texte en fait 485) :
 
 ```
-Crée une vidéo de présentation courte, 30 à 45 secondes, d'AppForge, destinée à la fiche Google Play. Langue : français, vouvoiement, ton direct et concret, pour des indépendants, artisans et petites entreprises. Suis EXACTEMENT, dans l'ordre et sans rien ajouter, le « Script 30 secondes » du document « brief-video-appforge » : une phrase de voix off par étape. Pour les images, utilise uniquement les captures d'écran du document « visuels-appforge », une par étape, dans l'ordre indiqué par le script (demande, prix fixe, fabrication, livraison, exemples, offre). N'invente aucune fonctionnalité, aucun chiffre, aucun prix en argent. N'emploie jamais les mots APK, Kotlin, Godot, administrateur, ni le nom d'une technologie ou d'un fournisseur d'intelligence artificielle. Pas d'introduction du type « dans cette vidéo », pas de récapitulatif final : commence directement par « Vous avez une idée d'application ? » et termine par « Votre première application est offerte. AppForge, sur Google Play. »
+Vidéo AppForge pour Google Play, 30 à 45 s, français, vouvoiement. Suis exactement et dans l'ordre le « Script 30 secondes » du brief : une phrase par étape, rien d'autre. Images : uniquement les captures du document visuels, une par étape. Aucun chiffre, aucun prix, aucun nom de technologie, jamais le mot administrateur. Pas d'intro ni de récap : commence par « Vous avez une idée d'application ? », termine par « Votre première application est offerte. AppForge, sur Google Play. »
 ```
 
-Variante anglaise, pour la fiche en-US (même notebook, langue de sortie réglée sur l'anglais) :
+Variante anglaise, pour la fiche en-US (même notebook, langue de sortie réglée sur l'anglais dans les paramètres de NotebookLM ; 480 caractères) :
 
 ```
-Create a short promo video, 30 to 45 seconds, for AppForge, meant for its Google Play listing. Language: English, direct and concrete tone, for freelancers, tradespeople and small businesses. Follow EXACTLY, in order and without adding anything, the "Script 30 secondes" of the "brief-video-appforge" document, translated into natural English: one voice-over sentence per step. For visuals, use only the screenshots from the "visuels-appforge" document, one per step, in the script's order (request, fixed price, building, delivery, examples, offer). Do not invent any feature, number or money price. Never say APK, Kotlin, Godot, administrator, or the name of any technology or AI vendor. No "in this video" introduction, no closing recap: start directly with "Have an idea for an app?" and end with "Your first app is on us. AppForge, on Google Play."
+Promo video for AppForge's Google Play listing, 30 to 45 s, in English, direct tone. Follow exactly, in order, the "Script 30 secondes" of the brief, translated naturally: one sentence per step, nothing else. Visuals: only the screenshots from the visuals document, one per step. No numbers, no prices, no technology names (no APK, Godot or administrator). No intro, no recap: start with "Have an idea for an app?" and end with "Your first app is on us. AppForge, on Google Play."
 ```
 
 ---
